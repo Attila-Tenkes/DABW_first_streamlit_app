@@ -1,5 +1,7 @@
 import streamlit
 import pandas
+import requests
+
 
 streamlit.title('Fuit list content')
 # get the file
@@ -12,3 +14,7 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 streamlit.dataframe(fruits_to_show)
+
+# call FruityVice API to load some data
+fruits = requests.get('https://fruityvice.com/api/fruit/watermelon')
+steramlit.text(fruits)
