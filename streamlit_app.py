@@ -12,11 +12,15 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
 
 fruits_to_show = my_fruit_list.loc[fruits_selected]
-
 streamlit.dataframe(fruits_to_show)
 
+
+
+streamlit.header('FuityVice advice')
+fruity_chioce = streamlit.text_input('What fruit would you like to get information about? ','kiwi')
 # call FruityVice API to load some data
-fruits = requests.get('https://fruityvice.com/api/fruit/watermelon')
+fruits = requests.get('https://fruityvice.com/api/fruit/'+ fruity_chioce)
+streamlit.write('selected: ' , fruity_chioce)
 # streamlit.text(fruits.json())
 
 fruitVice_normalized = pandas.json_normalize(fruits.json())
