@@ -18,3 +18,7 @@ streamlit.dataframe(fruits_to_show)
 # call FruityVice API to load some data
 fruits = requests.get('https://fruityvice.com/api/fruit/watermelon')
 streamlit.text(fruits.json())
+
+
+fruitVice_normalized = pandas.json_normalize(fruits.json())
+streamlit.dataframe(fruitVice_normalized)
