@@ -20,7 +20,13 @@ def get_fruit_list():
     my_data = my_cur.fetchall()
     return my_data
   
-  
+def insert_to_spowflake(fruit):
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values ('" + fruit + "')")
+    return "tahnks for adding: " + fruit
+    
+    
+    
 streamlit.title('Fuit list content')
 # get the file
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -46,16 +52,20 @@ except URLError as e:
 
 
 
-# connection 
 if streamlit.button("get the list"):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   rows = get_fruit_list()
   streamlit.text("List:")
   streamlit.dataframe(rows)
 
-
 fruitToBeAdded = streamlit.text_input("What fruit would you like to add:")
-if fruitToBeAdded:
-  my_cur.execute("insert into  pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values ('"+fruitToBeAdded+"')")
+if streamlit.button("add to the list"):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  res = insert_to_spowflake(fruitToBeAdded)
+  streamlit.text(res)
+  
+  
+#if fruitToBeAdded:
+#  my_cur.execute("insert into  pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values ('"+fruitToBeAdded+"')")
 
 
