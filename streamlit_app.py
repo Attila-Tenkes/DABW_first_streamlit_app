@@ -18,11 +18,13 @@ def get_fruit_list():
     my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")  
     # my_data_row = my_cur.fetchone()
     my_data = my_cur.fetchall()
+    my_cur.close()
     return my_data
   
 def insert_to_spowflake(fruit):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values ('" + fruit + "')")
+    my_cur.close()
     return "Thanks for adding: " + fruit
     
     
