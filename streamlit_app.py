@@ -18,6 +18,7 @@ def get_fruit_list():
     my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")  
     # my_data_row = my_cur.fetchone()
     my_data = my_cur.fetchall()
+    return my_data
   
   
 streamlit.title('Fuit list content')
@@ -48,9 +49,9 @@ except URLError as e:
 # connection 
 if streamlit.button("get the list"):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  my_data = get_fruit_list()
+  rows = get_fruit_list()
   streamlit.text("List:")
-  streamlit.dataframe(my_data)
+  streamlit.dataframe(rows)
 
 
 fruitToBeAdded = streamlit.text_input("What fruit would you like to add:")
