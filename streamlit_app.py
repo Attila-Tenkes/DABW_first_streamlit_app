@@ -42,6 +42,7 @@ streamlit.dataframe(my_data)
 
 
 fruitToBeAdded = streamlit.text_input("What fruit would you like to add:")
-my_cur.execute("inert into  pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values (%s)", fruitToBeAdded)
+if fruitToBeAdded != ""
+  my_cur.execute("insert into  pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values (%s)", fruitToBeAdded)
 
 
