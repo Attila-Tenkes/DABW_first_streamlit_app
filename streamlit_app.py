@@ -23,7 +23,7 @@ def get_fruit_list():
 def insert_to_spowflake(fruit):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into pc_rivery_db.public.fruit_load_list (FRUIT_NAME) values ('" + fruit + "')")
-    return "tahnks for adding: " + fruit
+    return "Thanks for adding: " + fruit
     
     
     
