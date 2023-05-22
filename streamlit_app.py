@@ -19,14 +19,19 @@ streamlit.dataframe(fruits_to_show)
 
 
 streamlit.header('FuityVice advice')
-fruity_chioce = streamlit.text_input('What fruit would you like to get information about? ','kiwi')
-# call FruityVice API to load some data
-fruits = requests.get('https://fruityvice.com/api/fruit/'+ fruity_chioce)
-streamlit.write('selected: ' , fruity_chioce)
-# streamlit.text(fruits.json())
-
-fruitVice_normalized = pandas.json_normalize(fruits.json())
-streamlit.dataframe(fruitVice_normalized)
+try:
+  fruity_chioce = streamlit.text_input('What fruit would you like to get information about? ','kiwi')
+  if not fruity_chioce:
+    streamlit.error("Please select a fruit")
+  else:    
+    # call FruityVice API to load some data
+    fruits = requests.get('https://fruityvice.com/api/fruit/'+ fruity_chioce)
+    streamlit.write('selected: ' , fruity_chioce)
+    # streamlit.text(fruits.json())
+    fruitVice_normalized = pandas.json_normalize(fruits.json())
+    streamlit.dataframe(fruitVice_normalized)
+except URLError as e:
+  streamlit.error()
 
 
 
